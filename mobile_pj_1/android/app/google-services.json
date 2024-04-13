@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "606223871677",
+    "project_id": "mobile-pj-852a7",
+    "storage_bucket": "mobile-pj-852a7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:606223871677:android:2c39ccf6d08f910c0791d4",
+        "android_client_info": {
+          "package_name": "com.example.mobile_pj_1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCs3J4n3yCaoWeay6vjgU4cSWviu-aBgA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
