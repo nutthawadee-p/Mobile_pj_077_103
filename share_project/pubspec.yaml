@@ -35,11 +35,14 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
-  firebase_core: ^2.30.0
   image_picker: ^1.1.0
   cloud_firestore: ^4.17.0
   form_field_validator: ^1.1.0
   firebase_storage: ^11.7.2
+  faker: ^2.1.0
+  cached_network_image: ^3.3.1
+  firebase_core: ^2.30.0
+  flutter_svg: ^2.0.10+1
 
 dev_dependencies:
   flutter_test:
@@ -64,13 +67,14 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
-    - assets/icons/Gamepad.png
+    - assets/icons/
   fonts:
-    - family: Inter
+    - family: Inder
       fonts:
-        - asset: assets/fonts/Inter-Bold.ttf
-        - asset: assets/fonts/Inter-Medium.ttf
-          style: italic
+        - asset: fonts/Inder-Regular.ttf
+    - family: Monofett
+      fonts:
+        - asset : fonts/Monofett-Regular.ttf
 
 
   # To add assets to your application, add an assets section, like this:

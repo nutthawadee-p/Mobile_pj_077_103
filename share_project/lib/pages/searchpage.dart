@@ -2,6 +2,9 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:share_project/pages/EditPage.dart';
+
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -17,13 +20,25 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFFFFBEB),
       body: Column(
         children: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => EditPage()),
+              );
+            },
+            icon: SvgPicture.asset(
+                "assets/icons/edit.svg"),
+          ),
           Container(
             margin: EdgeInsets.only(top: 25, left: 20, right: 20),
             decoration: BoxDecoration(boxShadow: [
               BoxShadow(
-                  color: Color(0xff1D1617).withOpacity(0.11),
+                  color: Color.fromARGB(255, 187, 122, 132).withOpacity(0.11),
                   blurRadius: 35.0,
                   spreadRadius: 0.0)
             ]),
@@ -76,8 +91,7 @@ class _SearchPageState extends State<SearchPage> {
                 return ListView.builder(
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (context, index) {
-                    final DocumentSnapshot document =
-                        snapshot.data!.docs[index];
+                    final DocumentSnapshot document =snapshot.data!.docs[index];
                     return Card(
                       margin: EdgeInsets.all(15.0),
                       elevation: 4,

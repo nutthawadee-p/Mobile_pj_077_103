@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:share/pages/bottom_nav_bar.dart';
-import 'package:share/pages/user.dart';
+import 'package:share_project/pages/bottom_nav_bar.dart';
+import 'package:share_project/models/user.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
-  static int userIndex = -1;
+  static int userId = -1;
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   @override
@@ -49,6 +49,7 @@ class LoginPage extends StatelessWidget {
               ),
               child: TextField(
                 controller: passwordController,
+                obscureText: true,
                 decoration: InputDecoration(
                   hintText: 'Password',
                   contentPadding: EdgeInsets.all(10),
@@ -61,10 +62,12 @@ class LoginPage extends StatelessWidget {
               onPressed: () {
                 String enteredUsername = usernameController.text;
                 String enteredPassword = passwordController.text;
-                User newUser = User(username: enteredUsername, password: enteredPassword);
-                User.userList.add(newUser);
+                // User newUser = User(username: enteredUsername, password: enteredPassword);
+                // User.userList.add(newUser);
                 bool isUserExist = User.userList.any((user) => user.username == enteredUsername && user.password == enteredPassword);
-                userIndex = User.userList.indexWhere((user) => user.username == enteredUsername && user.password == enteredPassword);
+
+                userId = User.userList.indexWhere((user) => user.username == enteredUsername && user.password == enteredPassword);
+                
                 if (isUserExist) {
                   Navigator.pushAndRemoveUntil(
                     context,

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:share/pages/CreatePage.dart';
-import 'package:share/pages/HomePage.dart';
-import 'package:share/pages/MapPage.dart';
-import 'package:share/pages/ProfilePage.dart';
-import 'package:share/pages/SearchPage.dart';
-import 'package:share/pages/app_bar.dart';
+import 'package:share_project/pages/addprod.dart';
+import 'package:share_project/pages/HomePage.dart';
+import 'package:share_project/pages/MapPage.dart';
+import 'package:share_project/pages/ProfilePage.dart';
+import 'package:share_project/pages/SearchPage.dart';
+import 'package:share_project/pages/app_bar.dart';
 
 class BottomNavBar extends StatefulWidget {
   final int initialIndex;

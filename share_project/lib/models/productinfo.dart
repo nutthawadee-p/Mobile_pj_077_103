@@ -1,4 +1,5 @@
 class Product {
+  final String? userID;
   String name;
   String caption;
   String category;
@@ -6,7 +7,8 @@ class Product {
   String value;
 
   Product(
-      {required this.name,
+      {required this.userID,
+      required this.name,
       required this.caption,
       required this.category,
       required this.location,

@@ -9,6 +9,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 
 import 'dart:io';
 
+import 'package:share_project/pages/LoginPage.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -23,8 +25,10 @@ class _HomePageState extends State<HomePage> {
     final imageUrl = faker.image.image();
 
     return Scaffold(
+      backgroundColor: Color(0xFFFFFBEB),
       body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection("products").snapshots(),
+        stream: FirebaseFirestore.instance.collection("products")
+        .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
             return Center(
@@ -35,14 +39,7 @@ class _HomePageState extends State<HomePage> {
             children: snapshot.data!.docs.map((DocumentSnapshot document) {
               // Map<String, dynamic> data = document.data() as Map<String, dynamic>;
               return
-
-                  // Container(
-                  //   child: ListTile(
-                  //     title: Text(document["name"] + document["caption"]),
-                  //     leading: Image.file(File('${document['image']}')) ,
-                  //   ),
-                  // );
-                  Card(
+              Card(
                 margin: EdgeInsets.all(15.0),
                 elevation: 4,
                 shape: RoundedRectangleBorder(

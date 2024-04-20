@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:share/pages/LoginPage.dart';
-import 'package:share/pages/user.dart';
+import 'package:share_project/pages/LoginPage.dart';
+import 'package:share_project/models/user.dart';
 
 class SignupPage extends StatelessWidget {
   SignupPage({super.key});
@@ -142,6 +142,7 @@ class SignupPage extends StatelessWidget {
               ),
               child: TextField(
                 controller: passwordController,
+                obscureText: true,
                 decoration: InputDecoration(
                   hintText: 'Password',
                   contentPadding: EdgeInsets.all(10),

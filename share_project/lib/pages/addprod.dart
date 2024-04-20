@@ -8,22 +8,24 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:share_project/models/productinfo.dart';
+import 'package:share_project/models/user.dart';
+import 'package:share_project/pages/LoginPage.dart';
 
-class addInfo extends StatefulWidget {
-  const addInfo({super.key});
+class CreatePage extends StatefulWidget {
+  const CreatePage({super.key});
   @override
-  State<addInfo> createState() => _addInfoState();
+  State<CreatePage> createState() => _CreatePageState();
 }
 
-class _addInfoState extends State<addInfo> {
+class _CreatePageState extends State<CreatePage> {
   XFile? _image;
   String imageUrl = '';
   // String borval = '';
 
   final formkey = GlobalKey<FormState>();
 
-  Product product =
-      Product(name: '', caption: '', category: '', location: '', value: '');
+  Product product = Product(
+      userID: '', name: '', caption: '', category: '', location: '', value: '');
 
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
 
@@ -54,7 +56,8 @@ class _addInfoState extends State<addInfo> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
+    return 
+    FutureBuilder(
         future: firebase,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
@@ -69,12 +72,14 @@ class _addInfoState extends State<addInfo> {
           }
           if (snapshot.connectionState == ConnectionState.done) {
             return Scaffold(
+              backgroundColor: Color(0xFFFFFBEB),
               body: Padding(
                   padding: EdgeInsets.all(20),
                   child: Form(
                     key: formkey,
                     child: SingleChildScrollView(
-                      child: Column(children: [
+                      child: Column(
+                        children: [
                         Container(
                           padding: EdgeInsets.all(16),
                           child: _image != null
@@ -249,8 +254,7 @@ class _addInfoState extends State<addInfo> {
                         ElevatedButton(
                           onPressed: () async {
                             if (formkey.currentState!.validate()) {
-                              formkey.currentState
-                                  ?.save(); // call every onSaved for set value
+                              formkey.currentState?.save(); // call every onSaved for set value
                               await FirebaseFirestore.instance
                                   .collection("products")
                                   .add({
@@ -260,6 +264,7 @@ class _addInfoState extends State<addInfo> {
                                 "location": product.location,
                                 "image": imageUrl,
                                 "value": product.value,
+                                "userID": LoginPage.userId ,
                               });
                               formkey.currentState?.reset();
 
@@ -296,3 +301,4 @@ class _addInfoState extends State<addInfo> {
         });
   }
 }
+

@@ -77,4 +77,5 @@ class DefaultFirebaseOptions {
     authDomain: 'mobile-pj-852a7.firebaseapp.com',
     storageBucket: 'mobile-pj-852a7.appspot.com',
   );
+
 }
