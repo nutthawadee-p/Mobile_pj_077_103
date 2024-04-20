@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
@@ -17,11 +18,12 @@ class addInfo extends StatefulWidget {
 class _addInfoState extends State<addInfo> {
   XFile? _image;
   String imageUrl = '';
-  String borval = '';
+  // String borval = '';
 
   final formkey = GlobalKey<FormState>();
 
-  Product product = Product(name: '', caption: '', category: '', location: '');
+  Product product =
+      Product(name: '', caption: '', category: '', location: '', value: '');
 
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
 
@@ -46,9 +48,7 @@ class _addInfoState extends State<addInfo> {
         await referenceImageToUpload.putFile(File(_image!.path));
         //Success: get the download URL
         imageUrl = await referenceImageToUpload.getDownloadURL();
-      } catch (error) {
-        //Some error occurred
-      }
+      } catch (error) {}
     }
   }
 
@@ -84,6 +84,9 @@ class _addInfoState extends State<addInfo> {
                         ElevatedButton(
                           onPressed: _getImage,
                           child: Text('Choose Image'),
+                        ),
+                        SizedBox(
+                          height: 20,
                         ),
                         Container(
                           padding: EdgeInsets.only(
@@ -204,16 +207,44 @@ class _addInfoState extends State<addInfo> {
                           height: 20,
                         ),
                         // borrow or price
-                        Row(
-                          children: [
-                            borrowIcon(
-                              updateBorrowState: (value) {
-                                setState(() {
-                                  borval = value;
-                                });
-                              },
+                        Text(
+                          'Please enter "borrow" or price ',
+                          style: TextStyle(
+                            fontFamily: "Inter",
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(
+                              top: 5.0, bottom: 10.0, left: 15.0, right: 15.0),
+                          // width: ,
+                          decoration: BoxDecoration(
+                              // shape: BoxShape.rectangle,
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(15),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 5,
+                                  blurRadius: 7,
+                                  offset: Offset(0, 3),
+                                )
+                              ]),
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                              hintText: '"borrow" or price',
                             ),
-                          ],
+                            onSaved: (String? value) {
+                              product.value = value!;
+                            },
+                            validator: RequiredValidator(
+                                errorText: "Please enter 'borrow' or price "),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
                         ),
                         ElevatedButton(
                           onPressed: () async {
@@ -227,8 +258,8 @@ class _addInfoState extends State<addInfo> {
                                 "caption": product.caption,
                                 "category": product.category,
                                 "location": product.location,
-                                "borval": borval,
                                 "image": imageUrl,
+                                "value": product.value,
                               });
                               formkey.currentState?.reset();
 
@@ -236,9 +267,22 @@ class _addInfoState extends State<addInfo> {
                               print("${product.caption}");
                               print("${product.category}");
                               print("${product.location}");
+                              print("${product.value}");
                             }
                           },
-                          child: Text('Post'),
+                          child: Text(
+                            'Post',
+                            style: TextStyle(
+                                fontFamily: "Inter", color: Colors.black),
+                          ),
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                Color.fromRGBO(255, 217, 61, 1.0)),
+                            padding:
+                                MaterialStateProperty.all<EdgeInsetsGeometry>(
+                                    EdgeInsets.symmetric(
+                                        horizontal: 70, vertical: 8)),
+                          ),
                         ),
                       ]),
                     ),
@@ -250,34 +294,5 @@ class _addInfoState extends State<addInfo> {
             child: CircularProgressIndicator(),
           ));
         });
-  }
-}
-
-class borrowIcon extends StatefulWidget {
-  final Function(String) updateBorrowState; // Callback function
-  const borrowIcon({Key? key, required this.updateBorrowState})
-      : super(key: key);
-
-  @override
-  State<borrowIcon> createState() => _borrowIconState();
-}
-
-class _borrowIconState extends State<borrowIcon> {
-  bool borrow = false;
-  // String borval = "";
-
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-        onPressed: () {
-          setState(() {
-            borrow != borrow;
-            widget.updateBorrowState(borrow ? "borrow" : "");
-          });
-        },
-        icon: Icon(
-          borrow ? Icons.handshake_rounded : Icons.handshake_outlined,
-          color: borrow ? Colors.black : null,
-        ));
   }
 }

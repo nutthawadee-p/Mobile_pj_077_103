@@ -1,7 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
+
+import 'package:faker/faker.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+
 import 'dart:io';
 
 class HomePage extends StatefulWidget {
@@ -14,6 +19,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    final faker = Faker();
+    final imageUrl = faker.image.image();
+
     return Scaffold(
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection("products").snapshots(),
@@ -43,12 +51,16 @@ class _HomePageState extends State<HomePage> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Image.file(
-                        File('${document['image']}'),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10.0),
+                      child:
+                          // Image.file(
+                          //   File('${document['image']}'),
+                          Image.network(
+                        '${document['image']}',
                         width: 100,
                         height: 100,
+                        fit: BoxFit.cover,
                       ),
                     ),
                     SizedBox(width: 15.0),
@@ -72,18 +84,38 @@ class _HomePageState extends State<HomePage> {
                               color: Colors.grey[700],
                             ),
                           ),
-                          SizedBox(height: 8),
+                          SizedBox(height: 2),
                           Text(
-                            " Bath",
+                            document["caption"],
                             style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
+                              color: Colors.grey[700],
                             ),
                           ),
                         ],
                       ),
                     ),
-                    starIcon(),
+                    Column(children: [
+                      starIcon(),
+                      document["value"] == "borrow"
+                          ? Icon(
+                              Icons.handshake_rounded,
+                              color: Colors.black,
+                            )
+                          : Text(
+                              document["value"] + "฿",
+                              style: TextStyle(
+                                  fontFamily: "Inter",
+                                  fontWeight: FontWeight.w600),
+                            ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      CircleAvatar(
+                        radius: 12,
+                        backgroundImage: CachedNetworkImageProvider(imageUrl),
+                      )
+                    ])
                   ],
                 ),
               );
