@@ -43,6 +43,7 @@ dependencies:
   cached_network_image: ^3.3.1
   firebase_core: ^2.30.0
   flutter_svg: ^2.0.10+1
+  google_maps_flutter: ^2.6.1
 
 dev_dependencies:
   flutter_test:
@@ -74,7 +75,7 @@ flutter:
         - asset: fonts/Inder-Regular.ttf
     - family: Monofett
       fonts:
-        - asset : fonts/Monofett-Regular.ttf
+        - asset: fonts/Monofett-Regular.ttf
 
 
   # To add assets to your application, add an assets section, like this:
