@@ -80,7 +80,8 @@ class _EditPageState extends State<EditPage> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
+    return 
+    FutureBuilder(
         future: firebase,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
@@ -97,7 +98,8 @@ class _EditPageState extends State<EditPage> {
             return Scaffold(
               appBar: CustomAppBar(),
               backgroundColor: Color(0xFFFFFBEB),
-              body: ListView(
+              body: 
+              ListView(
                 children: [
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
@@ -114,13 +116,10 @@ class _EditPageState extends State<EditPage> {
                                     fontSize: 20, fontFamily: 'Inder')),
                           ],
                         ),
+
                         ElevatedButton(
-                          onPressed: () async {
-                            await FirebaseFirestore.instance
-                                .collection("products")
-                                .add({
-                              "userimage": userimageUrl,
-                            });
+                          onPressed: ()  {
+                    
                             saveProfile();
                             Navigator.pushAndRemoveUntil(
                               context,
@@ -492,8 +491,8 @@ class _EditPageState extends State<EditPage> {
                                           },
                                           icon: SvgPicture.asset(
                                               'assets/icons/bin.svg',
-                                              width: 10,
-                                              height: 10))
+                                              width: 20,
+                                              height: 20))
                                     ],
                                   ),
                                 ],
