@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       ClipRRect(
                         child: Image.asset(recommendList[index].pic,
-                            width: 129, height: 117, fit: BoxFit.cover),
+                            width: 129, height: 110, fit: BoxFit.cover),
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                       // name+icon
